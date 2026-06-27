@@ -120,7 +120,8 @@ def fetch_index(name: str, start: str, end: str | None, verbose: bool = True) ->
         )
     out = hist.reset_index()[["Date", "Open", "High", "Low", "Close", "Volume"]]
     out.columns = ["date", "open", "high", "low", "close", "volume"]
-    out["date"] = pd.to_datetime(out["date"]).dt.tz_localize(None)
+    s = pd.to_datetime(out["date"])
+    out["date"] = s.dt.tz_convert(None) if s.dt.tz is not None else s
     return out.sort_values("date").reset_index(drop=True)
 
 
