@@ -94,7 +94,7 @@ ML_prediction_project/
 ├── References/
 │   ├── *.pdf               # 11 research papers (FX/AML/ML)
 │   ├── GBPUSD_ML_data_requirements_spec.md   # Full data spec
-│   ├── CLAUDE.md           # Lessons learned, conventions (important!)
+│   ├── LESSONS_LEARNED.md  # Lessons learned, conventions (important!)
 │   └── eurusd-forex-prediction.html
 ├── configs/                # .env.example (FRED_API_KEY, ONS_API_KEY)
 ├── Key/                    # fred_key.txt (gitignored — do not commit)
@@ -119,7 +119,7 @@ ML_prediction_project/
 | **Personal machine** | YES | Fetch data (`src/data/`), `pip install`, `push.bat` |
 | **Google Colab / Kaggle** | YES | Fetch data + train heavy models |
 
-> When using Claude Code in Cowork: cannot run `fetch_*.py`, cannot `pip install`.
+> Data fetching (`fetch_*.py`) needs internet access.
 > Run on personal machine → copy CSVs into `data/raw/` → commit.
 
 ---
