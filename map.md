@@ -115,4 +115,4 @@
 | Push to git | `push.bat` or `python scripts\auto_push.py` |
 | Update session log | `SESSION_LOG.md` — prepend a new entry, keep max 2 entries; archive older ones → `SESSION_LOG_archive.md` |
 | API keys | `Key/fred_key.txt` (gitignored) · `configs/.env.example` |
-| Fetch gotchas (ONS/FRED/yfinance) | `References/CLAUDE.md` |
+| Fetch gotchas (ONS/FRED/yfinance) | `References/LESSONS_LEARNED.md` |

@@ -21,7 +21,7 @@ Building 2014-2024 daily OHLCV for 13 pairs this way means downloading, decompre
 and aggregating roughly 13 pairs x 11 years x 365 days x 24 hours ~= 1.25 million hourly
 files (fewer in practice -- weekends/holidays have no ticks -- but still on the order
 of 800k-900k requests). This is exactly the kind of "tick-vs-bar, light-vs-heavy" choice
-flagged as a transferable lesson in References/CLAUDE.md: implement BOTH paths and let
+flagged as a transferable lesson in References/LESSONS_LEARNED.md: implement BOTH paths and let
 whoever runs this script decide based on whether genuine volume is worth the bandwidth
 and runtime, rather than silently picking one.
 

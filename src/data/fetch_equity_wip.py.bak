@@ -47,7 +47,7 @@ Implementation notes
 - Uses `yfinance` (already in requirements.txt). One `yf.Ticker(ticker).history(...)`
   call per index -- no batching, since each index has an independent first-trade date
   and silent partial failures are easier to diagnose one at a time (same
-  per-instrument-coverage caution as the macro indicators -- see References/CLAUDE.md
+  per-instrument-coverage caution as the macro indicators -- see References/LESSONS_LEARNED.md
   "Kinh nghiem ... khong gia dinh do sau lich su dong nhat").
 - Output columns: date, open, high, low, close, volume (volume is genuine share-volume
   for equity indices -- unlike FX, this is NOT the unreliable-volume case; that concern

@@ -357,7 +357,7 @@ training delay. Data sources for each part of the screen:
 | Purpose | File |
 |---|---|
 | Full spec: data requirements, column list, transforms | `References/GBPUSD_ML_data_requirements_spec.md` |
-| Fetch lessons learned, gotchas, Cowork workarounds | `References/CLAUDE.md` |
+| Fetch lessons learned, gotchas, Cowork workarounds | `References/LESSONS_LEARNED.md` |
 | Visual progress checklist | `checklist_en.html` (open in browser) |
 | Data inventory dashboards | `reports/macro_data_status.html`, `reports/forex_data_status.html`, `reports/equity_data_status.html` |
 | Data pipeline ERD | `eurusd_data_pipeline_erd.html` |

@@ -1,7 +1,7 @@
 """
 WIP -- Forex OHLC (13 pairs), daily, via yfinance (=X tickers). Dukascopy path is kept
 as WIP/reference code but is NOT needed: forex volume has been removed from project scope
-(see References/GBPUSD_ML_data_requirements_spec.md section 2.3 and References/CLAUDE.md
+(see References/GBPUSD_ML_data_requirements_spec.md section 2.3 and References/LESSONS_LEARNED.md
 item 7). yfinance OHLC is sufficient; the volume column written to CSV is always 0 and
 is ignored by process_forex.py.
 

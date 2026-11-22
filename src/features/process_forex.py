@@ -3,7 +3,7 @@ Build data/interim/forex_panel.csv from the 13 raw OHLC CSVs in data/raw/forex/.
 
 Each raw file has columns: date, open, high, low, close, volume
 Volume is excluded (yfinance FX volume = 0; spot FX has no consolidated tape — see
-References/GBPUSD_ML_data_requirements_spec.md section 2.3 and References/CLAUDE.md item 7).
+References/GBPUSD_ML_data_requirements_spec.md section 2.3 and References/LESSONS_LEARNED.md item 7).
 
 Output: one row per business day (pd.bdate_range), 13 pairs x 4 OHLC cols = 52 columns.
 Non-trading days (weekends, market holidays) are forward-filled from the last trading day.

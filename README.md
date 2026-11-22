@@ -61,7 +61,7 @@ ML_prediction_project/
 │   └── tables/         # Tables (model_comparison.csv, ...)
 ├── configs/            # .env.example, config — no real secrets committed
 ├── Key/                # fred_key.txt (FRED API key, gitignored)
-├── References/         # Papers (PDFs), data spec, CLAUDE.md
+├── References/         # Papers (PDFs), data spec, lessons learned
 └── working_plan.html, checklist.html, checklist_en.html, index.html, requirements.txt,
     run_equity_wip.bat, run_forex_wip.bat
 ```
@@ -83,9 +83,9 @@ and would need to be aggregated to daily client-side; yfinance's `=X` tickers ar
 lighter but FX volume on Yahoo is widely reported unreliable/zero. `fetch_forex_wip.py`
 implements **both** behind `--source dukascopy|yfinance` instead of silently choosing one —
 see the script's docstring and `reports/forex_data_status.html` for the full trade-off.
-Neither path has been run end-to-end yet (no outbound network in the Cowork sandbox); the
-Dukascopy URL pattern and tick-record byte layout are verified only by a live URL check plus
-convergent community sources, not by decoding a real downloaded file in this session.
+Neither path has been run end-to-end yet; the Dukascopy URL pattern and tick-record byte
+layout are verified only by a live URL check plus convergent community sources, not yet by
+decoding a real downloaded file.
 
 ### `data/raw/macro/` — Macro indicators (FRED / ONS)
 
@@ -153,8 +153,8 @@ UK:  UK_FTSE100.csv (^FTSE), UK_FTSE250.csv (^FTMC), UK_FTSE350.csv (^FTLC),
      UK_FTSE_ALL_SHARE.csv (^FTAS)
 ```
 
-All tickers were checked via web search 2026-06-19, not via a live `yfinance` call in this
-sandbox. `^FTAS` (FTSE All-Share) has the lowest confidence — two direct verification
+All tickers were checked via web search 2026-06-19, not via a live `yfinance` call.
+`^FTAS` (FTSE All-Share) has the lowest confidence — two direct verification
 attempts against Yahoo Finance both returned empty bodies (consistent with the quote page
 being a JS-rendered SPA, and the raw chart JSON API likely requiring a cookie/crumb handshake
 that `yfinance` itself handles but a bare `requests` call does not) — spot-check this one
@@ -185,7 +185,7 @@ Placeholder (`.gitkeep`). Three variants to be built (spec section 3):
   MACD, Stochastic K/D, Momentum, CCI, ROC, Williams %R, A/D, Disparity, OSCP) computed per
   instrument — ~2,000 columns, trimmed via Bayesian feature selection.
 
-### `src/data/` — FRED fetch scripts (need network; run outside Cowork)
+### `src/data/` — FRED fetch scripts (need network access)
 
 | File | Role |
 |---|---|
@@ -207,7 +207,7 @@ The `*_wip.py` scripts are deliberately separate from the four working `fetch_*.
 above: they are not wired into `run_fred_pipeline.py` and must be run by hand once their
 source is confirmed working.
 
-### `src/features/` — Panel build & transforms (pure pandas; runs in Cowork)
+### `src/features/` — Panel build & transforms (pure pandas; no network needed)
 
 | File | Role |
 |---|---|
@@ -248,7 +248,7 @@ to be built.
 ### `References/`
 
 Eleven research PDFs (`01_…`–`11_…`, FX/AML/ML topics), `GBPUSD_ML_data_requirements_spec.md`
-(the full data spec), `eurusd-forex-prediction.html`, and `CLAUDE.md`.
+(the full data spec), `eurusd-forex-prediction.html`, and `LESSONS_LEARNED.md`.
 
 ### `configs/` & `Key/`
 
@@ -257,16 +257,14 @@ Eleven research PDFs (`01_…`–`11_…`, FX/AML/ML topics), `GBPUSD_ML_data_re
 
 ## Important note (execution environment)
 
-The Cowork sandbox has no outbound network access — it cannot call Dukascopy/FRED/ONS/yfinance,
-and cannot `pip install` new packages (verified; see the issue log in the checklist). As a result:
+Data collection needs outbound network access to Dukascopy, FRED, ONS and yfinance:
 
-- Data collection (`src/data/`) must run outside Cowork: a personal machine, Google Colab, or
-  Kaggle. Save the results as CSV and copy them into `data/raw/`.
-- Cowork can read/process/train on data already present in `data/` using pandas/sklearn — no
-  network needed. In particular `build_macro_panel.py` and the `process_*` scripts run fine in
-  Cowork once the raw CSVs exist.
-- `auto_push.py`/`push.bat` (git add/commit/push) also run on a personal machine since they
-  require a personal SSH key, not available in the sandbox.
+- Run `src/data/` on a machine with internet access (a personal machine, Google Colab, or
+  Kaggle). Save the results as CSV and copy them into `data/raw/`.
+- Everything after that (`build_macro_panel.py`, the `process_*` scripts, training) works
+  offline on data already present in `data/` using pandas/sklearn.
+- `auto_push.py`/`push.bat` (git add/commit/push) need a personal SSH key, so run them on
+  your own machine.
 
 ## Note on `auto_push.py`
 
@@ -278,5 +276,5 @@ not deliverables.
 
 ## requirements.txt
 
-Lists the packages needed for `src/`. Install and run on a personal machine/Colab, not inside the
-Cowork sandbox (network is blocked there).
+Lists the packages needed for `src/`. Install with `pip install -r requirements.txt` on a
+machine with internet access.
